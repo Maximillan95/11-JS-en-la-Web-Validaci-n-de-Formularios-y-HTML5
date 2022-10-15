@@ -4,7 +4,7 @@ export function valida(input){
         validadores[tipoDeInput](input);
     };
 
-    console.log(input.parentElement);
+    //console.log(input.parentElement);
     if(input.validity.valid){
         input.parentElement.classList.remove('input-container--invalid');
         input.parentElement.querySelector('.input-message-error').innerHTML = '';
@@ -24,7 +24,7 @@ const tipoDeErrores = [
 
 const mensajesDeError = {
     nombre: {
-        valueMissing: 'El campo nombre no puede estar vacío'
+        valueMissing: 'El campo nombre no puede estar vacío',
     },
     email:{
         valueMissing: 'El campo correo no puede estar vacío',
@@ -32,18 +32,33 @@ const mensajesDeError = {
     },
     password:{
         valueMissing: 'El campo contraseña no puede estar vacío',
-        patterMismatch: 'Al menos 6 caracteres, maximo 12, debe contener una letra minúscula, una letra mayúscula, un número y no puede contener caracteres especiales.',
+        patternMismatch: 'Al menos 6 caracteres, maximo 12, debe contener una letra minúscula, una letra mayúscula, un número y no puede contener caracteres especiales.',
     },
     nacimiento:{
         valueMissing: 'El campo nacimiento no puede estar vacío',
         customError: 'Debes tener al menos 18 años',
     },
-
+    numero:{
+        valueMissing: 'El campo numero no puede estar vacío',
+        patternMismatch: 'Ingresa tú número telefónico.',
+    },
+    direccion:{
+        valueMissing: 'El campo dirección no puede estar vacío',
+        patternMismatch: 'La direccion debe tener entre 10 a 40 caracteres.',
+    },
+    ciudad:{
+        valueMissing: 'El campo ciudad no puede estar vacío',
+        patternMismatch: 'La ciudad debe tener entre 10 a 40 caracteres.',
+    },
+    provincia:{
+        valueMissing: 'El campo provincia no puede estar vacío',
+        patternMismatch: 'La provincia debe tener entre 10 a 40 caracteres.',
+    },
 };
 
 const validadores = {
     nacimiento: input => validarNacimiento(input),
-}
+};
 
 function mostrarMensajeDeError(tipoDeInput, input){
     let mensaje = '';
@@ -55,10 +70,7 @@ function mostrarMensajeDeError(tipoDeInput, input){
             mensaje = mensajesDeError[tipoDeInput][error];
         };
     });
-
-
-
-    return mensaje
+    return mensaje;
 };
 
 
@@ -67,7 +79,7 @@ function validarNacimiento(input){
     let mensaje = '';
     if (!mayorDeEdad(fechaCliente)){
         mensaje = 'Debes tener al menos 18 años de edad'
-    }
+    };
     input.setCustomValidity(mensaje);//funcion que recibe un mensaje
 };
 
